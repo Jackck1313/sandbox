@@ -1,0 +1,576 @@
+import random
+
+#Varriables and boleans
+x = 1
+y = 1
+coins = 3
+axe = False
+rope = False
+key = False
+hole = False
+bartender = False
+
+
+
+
+print("\nWelcome to Pakistan!")
+print("Feel free to explore!")
+print("To get you started, there is a shop at (3,2)")
+
+shopAxe = "4 coins"
+shopRope = "2 coins"
+shopKey = "8 coins"
+
+#Movement
+while True:
+    print(f"\nYour position is ({x}, {y})")
+    moveX = int(input("How far would you like to move in the x axis"))
+    moveY = int(input("How far would you like to move in the y axis"))
+    x += moveX
+    y += moveY
+
+
+    #BAR
+    
+    if x == 5 and y == 6:
+        if bartender == True:
+            print('''
+            No point in going back''')
+        if hole == False and rope == False:
+            print('''
+            ~  ~  ~  ~  ~  ~  ~  ~  ~  ~
+                There is a bar here
+            You are not thirsty right now
+                    maybe later
+            ~  ~  ~  ~  ~  ~  ~  ~  ~  ~
+            ''')
+        if hole == True and bartender == False:
+            print("\nYou follow the man to a bar")
+            print('''
+            The man is nowhere to be found
+            The only person inside is the bartender
+            ''')
+            print("[A]pproach the Bartender")
+            while True:
+                approachBar = input().upper()
+                if approachBar  == "A":
+                    print('''
+                    ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+                    We don't often get visiters in these parts.
+                    You must be here to climb the mountain
+                    ''')
+                    input("Press |ENTER| to inquire about the mountain: ")
+                    print("The mountain?")
+                    print('''
+                                You don't know?
+                         Not too far from here is K2
+                         No ones ever reached the top
+                    Thats what most of you lot come here for
+
+                         | Its somewhere around (8,3) |
+                    ''')
+                    while True:
+                        showOff= input("Show the bartender your USELESS [R]OPE: ").upper()
+                        if showOff == "R":
+                            print('''
+                                 Ahhh so you ARE here
+                                to climb the mountain
+                                  Be warned though
+                            You need a key to enter the gate
+                                  of the mountain
+
+                                If its $MONEY$ you need
+                            you can always try the *CASINO*
+                                  | It's at (7, 4) |
+                            ''')
+                            print("You should listen to the bartender")
+                            bartender = True
+                            break
+                        else:
+                            print("\nWhat are you doing?")
+                            print("Type [R] to show the bartender your rope\n")
+                    break
+
+                else:
+                    print("\nWhat are you doing?")
+                    print("Type [A] to approach the bartender")
+
+
+    #CASINO
+
+    if x == 7 and y == 4:
+        if bartender == False:
+            print("\nThere is a funny looking building, maybe you'll come back to it later")
+        elif bartender == True:
+            plural = ""
+            while True:
+                if coins != 1:
+                    plural = "s"
+                print("----------------------------")
+                print("Test your luck at the Slots!")
+                print(f'''
+                You have {coins} coin{plural}
+                DO YOU WANT TO SPIN?
+                1. SPIN 
+                2. LEAVE
+                ''')
+                gamble = int(input())
+                
+                if gamble == 1:
+                    if coins == 0:
+                        print('''
+                        ---------------------------
+                        You can't afford to Spin...
+                        ---------------------------
+                        ''')
+                        while True:
+                            forceLeaveCasino = input("Type [2] to leave the casino: ")
+                            if forceLeaveCasino == "2":
+                                break
+                            else:
+                                print("\nSorry, You're broke\n")
+                        break
+                    elif coins == 12:
+                        print('''
+                        ------------------------
+                        Maybe You should stop...
+                        ------------------------
+                        ''')
+                        while True:
+                            forceLeaveCasino = input("Type [2] to leave the casino: ")
+                            if forceLeaveCasino == "2":
+                                break
+                            else:
+                                print("\nYou have a problem\n")
+                        break
+
+                    else:
+                        print('''
+                        ~~~~~~~~~~
+                        !SPINNING!
+                        ~~~~~~~~~~
+                        ''')
+                        input("Press |ENTER| to continue: ")
+                        
+                        if coins >= 13:
+                            if axe == True and key == True:
+                                gambleCoinGain = coins
+                            else:
+                                gambleCoinGain = coins - 12
+                            print(f'''
+                            |4|@|!|
+                        -------------------
+                        YOU LOST ${gambleCoinGain}$ COINS
+                        -------------------
+                            ''')
+                            coins -= gambleCoinGain
+                            input("Press |ENTER| to continue: ")
+                        if coins < 12 and coins != 0:
+                            gambleCoinGain = random.randint(50,99)
+                            print(f'''
+                            |7|7|7|
+                        ------------------
+                        YOU GOT ${gambleCoinGain}$ COINS
+                        ------------------
+                            ''')
+                            coins += gambleCoinGain
+                            input("Press |ENTER| to continue: ")
+                        
+
+
+                elif gamble == 2:
+                    print('Come Again!')
+                    break
+           
+
+                
+    #HOLE
+
+    if moveX >= 1 or moveY >= 1:
+        if rope == True and hole == False:
+            hole = True
+            print("The ground suddenly caves in")
+            print('''
+            !!!!!!!!!!!!!!!!!!!!!!!!!!
+            YOU FELL IN A MASSIVE HOLE
+            !!!!!!!!!!!!!!!!!!!!!!!!!!
+            ''')
+            print("Luckily you have the rope you just purchased!")
+            print("\nA man appears at the top of the hole")
+            print("'If you want to escape this hole, you must answer my riddle'")
+            print('''
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+What is so fragile that when you says its name, you break it?
+~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+            ''')
+            print("For some reason, you must answer a riddle before using your rope: ")
+            while True:
+                riddle = input().lower()
+                if riddle == "silence":
+                    print('''
+                    - - - - - - - - - - -
+                    Ah yes now I remember
+                    *The man walked away*
+                    ''')
+                    print("It seems the man didn't even know the answer")
+                    print("You are now free to use your [R]ope: ")
+                    while True:
+                        exitHole = input().upper()
+                        if exitHole == "R":
+                            print(''' 
+                            ---------------------------------------
+                            You use USELESS ROPE to escape the HOLE
+                            ---------------------------------------
+                            ''')
+                            print("You see the mans footprints moving towards (5, 6)")
+                            print("Maybe you should follow him")
+                            break
+                        else:
+                            print("\nWhat are you tring to do?")
+                            print("Use [R] to use your rope")
+                    break
+                else:
+                    print("No, not quite")
+
+    #SHOP
+
+    if x == 3 and y == 2:
+        print("--------------------------")
+        print("Welcome to the town shop!")
+        while True:
+            print(f'''
+            1. Strange Axe    |{shopAxe}|
+            2. Usless Rope    |{shopRope}|
+            3. Mysterious Key |{shopKey}|
+            4. Leave shop''')
+            print(f"\nYou have {coins} coins")
+            purchase = int(input("What can I get you? "))
+
+            #BUY AXE
+
+            if purchase == 1:
+                if axe == False:
+                    if coins >= 4:
+                        print("\nNice Choice!")
+                        print('''
+            -----------------------------
+            ~You recieved a Strange Axe!~
+            -----------------------------
+            ''')
+                        shopAxe = "purchased"
+                        coins -= 4
+                        axe = True
+                    else:
+                        print("\nSorry bud, you don't have enough coins for that")
+                elif axe == True:
+                    print("\nSorry bud, you bought my last one")
+            
+            #BUY ROPE
+
+            if purchase == 2:
+                if rope == False:
+                    if coins >= 2:
+                        print("\nYou want that? Sure I guess.")
+                        print('''
+            ------------------------------
+            ~You recieved a Useless Rope!~
+            ------------------------------
+            ''')
+                        shopRope = "purchased"
+                        coins -= 2
+                        rope = True
+                    else:
+                        print("\nSorry bud, you don't have enough coins for that")
+                elif rope == True:
+                    print("\nSorry bud, you bought my last one")
+
+            #BUY KEY
+
+            if purchase == 3:
+                if key == False:
+                    if coins >= 8:
+                        print("\nI don't know what it opens but here you go!")
+                        print('''
+            --------------------------------
+            ~You recieved a Mysterious Key!~
+            --------------------------------
+            ''')
+                        shopKey = "purchased"
+                        coins -= 8
+                        key = True
+                    else:
+                        print("\nSorry bud, you don't have enough coins for that")
+                elif key == True:
+                    print("\nSorry bud, you bought my last one")
+
+            #LEAVE
+
+            if purchase == 4:
+                print("\nCome again!")
+                break
+
+        #Prompt after rope purchase
+
+        if rope == True and hole == False:
+            print('''
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        You decide you should explore!
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            ''')
+        
+    #MOUNTAIN
+
+    if x == 8 and y == 3:
+        print("\nYou Come Across a Gate ")
+        print('''
+        ---------------
+        Enter the Gate?
+        1. Enter
+        2. Leave
+        ---------------
+        ''')
+        while True:
+            enterGate = int(input("Make Your Choice: "))
+            if enterGate == 1:
+                if key == True:
+                    print('''
+                    ------------------
+                    YOU ENTER THE GATE
+                    ------------------
+                    ''')
+                    input("Press |ENTER| to continue: ")
+                    print('''
+    .                  .-.    .  _   *     _   .
+           *          /   \     ((       _/ \       *    .
+         _    .   .--'\/\_ \     `      /    \  *    ___
+     *  / \_    _/ ^      \/\'__        /\/\  /\  __/   \ *
+       /    \  /    .'   _/  /  \  *' /    \/  \/ .`'\_/\   .
+  .   /\/\  /\/ :' __  ^/  ^/    `--./.'  ^  `-.\ _    _:\ _
+     /    \/  \  _/  \-' __/.' ^ _   \_   .'\   _/ \ .  __/ |
+   /\  .-   `. \/     \ / -.   _/ \ -. `_/   \ /    `._/  ^  |
+  /  `-.__ ^   / .-'.--'    . /    `--./ .-'  `-.  `-. `.  -  `.
+@/        `.  / /      `-.   /  .-'   / .   .'   \    \  \  .-  \%
+@&8jgs@@os @)&@&(88&@.-_=_-=_-=_-=_-=_.8@% &@&&8(8%@%8)(8@%8 8%@)%
+@88:::&(&8&&8:::::%&`.~-_~~-~~_--~_~-~~=.'@(&%::::%@8&8)::&#@8::::
+`::::::8%@@%:::::@%&8:`.=~~-.~-~-.~~=..~'8::::::::&@8:::::&8:::::'
+ `::::::::::::::::::::::::::::::::::::::::::::::::::::::::::.'
+
+                                woah
+                        ''')
+                    input("Press |ENTER| to continue: ")
+                    print('''
+                    You see the man who once asked you a riddle
+
+                        "Hmmmm I can't seem to remember"
+                    "The more of it there is, the less you see"
+                    ''')
+                    print("This guy really likes riddles")
+                    while True:
+                        mountainRiddle = input().lower()
+                        if mountainRiddle == "darkness":
+                            print('''
+                            ~~~~~~~~~~~~~~~~~~~~~~
+                            Ah yes yes that was it
+                    Thank you for helping an old man remember
+                           Here, A token of my thanks
+                            ''')
+                            input("Press [ENTER] to RECIEVE: ") 
+                            print('''
+                            -----------------------
+                            YOU GOT A STURDY HELMET
+                            -----------------------
+
+                            The old man walked away
+                            ''')
+                            print("Time to start your ascent, Move [N]orth")
+                            while True:
+                                startAscent = input().upper()
+                                if startAscent == "N":
+                                    print('''
+                                    ---------------
+                                    ELEVATION 5000M
+                                    ---------------
+                                    ''')
+                                    input("Press [ENTER] to continue: ")
+                                    print('''
+                                    ---------------
+                                    ELEVATION 6000M
+                                    ---------------
+
+                                The vertical climb begins
+                                    ''')
+                                    if axe == True:
+                                        print('''
+                                ----------------------
+                                YOU HAVE A STRANGE AXE
+                                ----------------------
+
+                              YOU USE IT TO SCALE THE ICE
+                                        ''')
+                                        
+
+                                    if axe == False:
+                                        print('''
+                            You have no tools to scale the ice wall
+
+                             You push through using your bare hands
+                                        ''')
+
+                                    input("Press [ENTER] to continue: ")
+                                    print('''
+                                    ---------------
+                                    ELEVATION 6700M
+                                    ---------------
+                                    ''')
+                                    print('''
+                                SUDDENLY YOUR ROPE SNAPS
+                                 [IT REALLY WAS USELESS]
+
+                               You fall onto a small ledge
+                               and survive, your helmet
+                               saves you from certain doom
+                                    ''')
+                                    input("Press [ENTER] to continue: ")
+                                    print('''
+                                    ---------------
+                                    ELEVATION 7300M
+                                    ---------------
+
+                        |You find a place to rest for the night|
+                                    ''')
+
+                                    input("Press [ENTER] to REST: ")
+                                    print('''
+                              You wake up ready to CLIMB
+                                                       -----
+                            THE TOP OF THE MOUNTAIN IS 8600M
+                                                       -----
+                                    ''')
+                                    input("Press [ENTER] to CONTINUE: ")
+                                    print('''
+                                    ---------------
+                                    ELEVATION 8000M
+                                    ---------------
+                                    ''')
+                                    if axe == True:
+                                        print('''
+                                   Your Grip is weak...
+                               YOU SLIP AND DROP YOUR AXE
+
+                               You must continue bare handed
+                                        ''')
+                                    if axe == False:
+                                        print('''
+                            You can't feel your hands anymore
+                                You look down and realize...
+                                -------------------------
+                                YOU LOST YOUR RING FINGER
+                                -------------------------
+                                        ''')
+                                    input("Press [ENTER] to CONTINUE: ")
+                                    print('''
+                                    ---------------
+                                    ELEVATION 8300M
+                                    ---------------
+                                    ''')
+                                    if axe == False:
+                                        print('''
+                                Your down to 8 fingers
+                                        ''')
+                                    if axe == True:
+                                        print('''
+                            You can't feel your hands anymore
+                                You look down and realize...
+                                -------------------------
+                                YOU LOST YOUR RING FINGER
+                                -------------------------
+                                        ''')
+                                    input("Press [ENTER] to CONTINUE: ")
+                                    print('''
+                                    ---------------
+                                    ELEVATION 8500M
+                                    ---------------
+                                    ONLY 100M LEFT!
+                                    ''')
+                                    if axe == True:
+                                        print('''
+                                  You can push through
+                                        ''')
+                                        input("Press [ENTER] to CONTINUE: ")
+                                        print('''
+                                    ---------------
+                                    ELEVATION 8600M
+                                    ---------------
+
+                                    YOU MADE IT!!!!
+                                 WITH 8 FINGERS LEFT!!!
+                              JUST IN TIME FOR THE SUNRISE
+                                    ''')
+                                        input("Press [ENTER] to WATCH THE SUNRISE: ")
+                                        print('''
+                      _                      |
+                     /#\               \     |       /
+                    /###\     /\        \    |      / 
+                   /  ###\   /##\  /\     ######## /
+                  /      #\ /####\/##\---##########
+                 /  /      /   # /  ##\ ############------  /\ 
+               // //  /\  /    _/  /  #\ ##########/#\    _/##\    /\ 
+              // /   /  \     /   /    #\ \######_/###\_ /   ##\__/ _\ 
+             /  \   / .. \   / /   _   { \ \ ## /       / //    /    \\
+     /\     /    /\  ...  \_/   / / \   } \ | /  /\  \ /  _    /  /    \ /\ 
+  _ /  \  /// / .\  ..%:.  /... /\ . \ {:  \\   /. \     / \  /   ___   /  \ 
+ /.\ .\.\// \/... \.::::..... _/..\ ..\:|:. .  / .. \\  /.. \    /...\ /  \ \ 
+/...\.../..:.\. ..:::::::..:..... . ...\{:... / %... \\/..%. \  /./:..\__   \ 
+ .:..\:..:::....:::;;;;;;::::::::.:::::.\}.....::%.:. \ .:::. \/.%:::.:..}
+::::...:::;;:::::;;;;;;;;;;;;;;:::::;;::{:::::::;;;:..  .:;:... ::;;::::..
+;;;;:::;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;];;;;;;;;;;::::::;;;;:.::;;;;;;;;:..
+;;;;;;;;;;;;;;ii;;;;;;;;;;;;;;;;;;;;;;;;[;;;;;;;;;;;;;;;;;;;;;;:;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;iiiiiiii;;;;;;;;;;;;;;};;ii;;iiii;;;;i;;;;;;;;;;;;;;;ii;;;
+iiii;;;iiiiiiiiiiIIIIIIIIIIIiiiiiIiiiiii{iiIIiiiiiiiiiiiiiiii;;;;;iiiilliiiii
+IIIiiIIllllllIIlllIIIIlllIIIlIiiIIIIIIIIIIIIlIIIIIllIIIIIIIIiiiiiiiillIIIllII
+IIIiiilIIIIIIIllTIIIIllIIlIlIIITTTTlIlIlIIIlIITTTTTTTIIIIlIIllIlIlllIIIIIIITT
+IIIIilIIIIITTTTTTTIIIIIIIIIIIIITTTTTIIIIIIIIITTTTTTTTTTIIIIIIIIIlIIIIIIIITTTT
+IIIIIIIIITTTTTTTTTTTTTIIIIIIIITTTTTTTTIIIIIITTTTTTTTTTTTTTIIIIIIIIIIIIIITTTTT
+
+
+                                      [THE END]
+                                
+
+                                        ''')
+                                        while True:
+                                            input()
+                                    if axe == False:
+                                        print('''
+                                    You can barely see
+                                You &re down t% 6 fingers
+                                Y@ur vi$ion is goi/g bl#rry
+                                        so c|ose
+                                    - - - -  - - - -
+                                    but it ends here
+                                    - - - -  - - - -
+                                        ''')
+                                        while True:
+                                            input()
+                                    
+
+
+
+                                
+                                else:
+                                    print("\nWhat are you tring to do?")
+                                    print("Type [N] to go North")
+
+
+                            
+                        else:
+                            print("\nNo, that wasn't it\n")
+
+                    
+                elif key == False:
+                    print('''
+                    -----------------------
+                    It Seems You Need a KEY
+                    -----------------------
+                    ''')
+            if enterGate == 2:
+                break
